@@ -1,0 +1,177 @@
+USE alreedi;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS House;
+DROP TABLE IF EXISTS Internet;
+DROP TABLE IF EXISTS Humans;
+DROP TABLE IF EXISTS Ploshad_House;
+DROP TABLE IF EXISTS Disciplins;
+DROP TABLE IF EXISTS Ploshadka;
+DROP TABLE IF EXISTS full_table;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+CREATE TABLE House (
+    House_id INT(5),
+    House_name VARCHAR(30),
+    PRIMARY KEY (House_id)
+    );
+
+CREATE TABLE Internet (
+  Internet_House_ID INT(5),
+    Internet_speed VARCHAR(30),
+    PRIMARY KEY (Internet_House_ID)
+    );
+
+CREATE TABLE Humans (
+    Humans_id INT(5),
+    Humans_counts INT(5),
+    PRIMARY KEY (Humans_id)
+       );
+
+CREATE TABLE Ploshad_House (
+    Ploshad_House_id INT(5),
+    Ploshad_House_in VARCHAR(30),
+    PRIMARY KEY (Ploshad_House_id)
+    );
+
+CREATE TABLE Disciplins (
+    Disciplins_id INT(5),
+    Disciplins_name VARCHAR(50),
+    PRIMARY KEY (Disciplins_id)
+    );
+
+CREATE TABLE Ploshadka (
+    Ploshadka_House_id INT(5),
+    Ploshadka_House_have_or_no VARCHAR(30),
+    PRIMARY KEY (Ploshadka_House_id)
+    );
+CREATE TABLE full_table(
+  full_table_name VARCHAR(30),
+  full_table_Second VARCHAR(30),
+
+  full_table_House INT(5),
+  full_table_Internet INT(5),
+  full_table_Humans INT(5),
+  full_table_Ploshad_House INT(5),
+  full_table_Disciplins INT(5),
+  full_table_Ploshadka INT(5),
+  INDEX(full_table_name),
+  PRIMARY KEY (full_table_name),
+  FOREIGN KEY (full_table_House) REFERENCES House(House_id),
+  FOREIGN KEY (full_table_Internet) REFERENCES Internet(Internet_House_ID),
+  FOREIGN KEY (full_table_Humans) REFERENCES Humans(Humans_id),
+  FOREIGN KEY (full_table_Ploshad_House) REFERENCES Ploshad_House(Ploshad_House_id),
+  FOREIGN KEY (full_table_Disciplins) REFERENCES Disciplins(Disciplins_id),
+  FOREIGN KEY (full_table_Ploshadka) REFERENCES Ploshadka(Ploshadka_House_id)
+  );
+INSERT INTO House (House_id, House_name)
+VALUES  (0, 'Западный берег'),
+        (1, 'Раздольное'),
+        (2, 'Ярославское'),
+        (3, 'Сосновый бор'),
+        (4, 'Лесное'),
+        (5, 'Оморское'),
+        (6, 'Гатчинское'),
+        (7, 'Движское'),
+        (8, 'Шуваловское'),
+        (9, 'Замерье'),
+        (10, 'Валенково');
+
+   
+
+INSERT INTO Internet ( Internet_House_ID, Internet_speed)
+
+VALUES  (0, '500 megabytes'),
+        (1, '700 megabytes'),
+        (2, '900 megabytes'),
+        (3, '950 megabytes'),
+        (4, '1000 megabytes'),
+        (5, '2000 megabytes');
+
+INSERT INTO Humans (Humans_id, Humans_counts)
+
+VALUES ( 0, '7' ),
+       (1 , '8'),
+       (2 , '9'),
+       (3, '10'),
+       (4, '11'),
+       (5, '12');
+
+
+INSERT INTO Ploshad_House (Ploshad_House_id, Ploshad_House_in)
+VALUES  (0, '200 Meters' ),
+        (1, '250 Meters' ),
+        (2, '300 Meters' ),
+        (3, '320 Meters' ),
+        (4, '380 Meters' ),
+        (5, '410 Meters' );
+
+INSERT INTO Disciplins (Disciplins_id, Disciplins_name)
+VALUES  (0, 'Valorant'),
+        (1, 'Counter Strike : Global Offensive ( CS:GO )'),
+        (2, 'Dota 2'),
+        (3, 'League of Legends ( LoL )'),
+        (4, 'Counter Strike 2'),
+        (5, 'Desk Tennis'),
+        (6, 'Basketball'),
+        (7, 'Voleyball');
+       
+INSERT INTO Ploshadka (Ploshadka_House_id, Ploshadka_House_have_or_no)
+VALUES (0, 'Нет'),
+       (1, 'Да');
+
+INSERT INTO full_table(full_table_name, full_table_Second, full_table_House, full_table_Internet, full_table_Humans, full_table_Ploshad_house, full_table_Disciplins,full_table_Ploshadka)
+VALUES('Дом для Буткемпа 1','Свободен',   0,0,0,0,3,1),
+      ('Дом для Буткемпа 2','Свободен',   1,1,1,1,1,0),
+      ('Дом для Буткемпа 3','Занят',      2,2,2,2,6,1),
+      ('Дом для Буткемпа 4','Занят',      3,3,3,3,0,1),
+      ('Дом для Буткемпа 5','Свободен',   4,4,4,4,2,0),
+      ('Дом для Буткемпа 6','Занят',      5,5,5,5,4,0),
+      ('Дом для Буткемпа 7','Свободен',   6,2,3,4,5,0),
+      ('Дом для Буткемпа 8','Занят',      7,4,3,2,7,1),
+      ('Дом для Буткемпа 9','Занят',      8,4,5,3,1,),
+      ('Дом для Буткемпа 10','Занят',     9,2,1,3,5,0),
+      ('Дом для Буткемпа 11','Свободен',  10,5,1,3,4,1);
+
+
+
+SELECT * FROM full_table;  
+SELECT * FROM House;
+SELECT * FROM Internet;
+SELECT * FROM Humans;
+SELECT * FROM Ploshad_House;
+SELECT * FROM Disciplins;
+SELECT * FROM Ploshadka;
+
+SELECT full_table_name AS 'Назначение',
+full_table_Second AS 'Статус',
+house.House_name AS 'Название дома',
+internet.Internet_speed AS'Скорость интернета',
+humans.Humans_counts AS'Количество человек',
+ploshad.Ploshad_House_in AS'Площадь дома',
+disciplins.Disciplins_name AS'Основаная деятельность подготовки',
+ploshadka.Ploshadka_House_have_or_no AS'Наличие площадки для физических тренировок'
+ 
+FROM full_table AS tabley
+ 
+INNER JOIN House AS house ON
+house.House_id = tabley.full_table_House
+ 
+INNER JOIN Internet AS internet ON
+internet.Internet_House_ID = tabley.full_table_Internet
+ 
+INNER JOIN Humans AS humans ON
+humans.Humans_id = tabley.full_table_Humans
+ 
+INNER JOIN Ploshad_House AS ploshad ON
+ploshad.Ploshad_House_id = tabley.full_table_Ploshad_House
+ 
+INNER JOIN Disciplins AS disciplins ON
+disciplins.Disciplins_id = tabley.full_table_Disciplins
+ 
+INNER JOIN Ploshadka AS ploshadka ON
+ploshadka.Ploshadka_House_id = tabley.full_table_Ploshadka
+
+
